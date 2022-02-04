@@ -1,8 +1,6 @@
 class FilmsController < ApplicationController
   def index
-    @films = Film.includes(:reviews).all
-    # @film.ratings = @film.reviews.reduce(0) { |sum, i| (i.rating + sum) } / @film.reviews.length
-    # render json: @film.to_json(include: :reviews)
+    @films = Film.includes(:reviews).order(:id).page(1).per(10)
   end
 
   def create
