@@ -1,0 +1,1 @@
+json.director destroyed: true

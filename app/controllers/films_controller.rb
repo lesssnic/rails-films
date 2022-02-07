@@ -1,15 +1,11 @@
-class FilmsController < ApplicationController
+class FilmsController < SecureController
   def index
-    @films = Film.includes(:reviews).order(:id).page(1).per(10)
+    @films = Film.includes(:reviews).pagination
   end
 
   def create
     @film = Film.new(film_params)
-    if @film.save
-      render json: @film
-    else
-      render json: @film.errors
-    end
+    render json: @film.errors, status: :unprocessable_entity unless @film.save
   end
 
   def film_params

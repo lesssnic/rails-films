@@ -1,5 +1,5 @@
-class ProducersController < ApplicationController
-  before_action :set_producer, only: %i[ show update destroy ]
+class ProducersController < SecureController
+  before_action :set_producer, only: %i[show update destroy]
 
   # GET /producers
   # GET /producers.json
@@ -41,13 +41,14 @@ class ProducersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_producer
-      @producer = Producer.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def producer_params
-      params.fetch(:producer, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_producer
+    @producer = Producer.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def producer_params
+    params.fetch(:producer, {})
+  end
 end

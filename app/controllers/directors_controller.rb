@@ -1,26 +1,17 @@
-class DirectorsController < ApplicationController
+class DirectorsController < SecureController
   before_action
   def index
-    @director = Director.all
-    render json: @director
+    @directors = Director.all
   end
 
   def create
     @director = Director.new(director_params)
-    if @director.save
-      render json: @director
-    else
-      render json: "Something went wrong"
-    end
+    render json: @director.errors, status: :unprocessable_entity unless @director.save
   end
 
   def destroy
     @director = Director.find_by id: params[:id]
-    if @director.destroy
-      render json: "Destroyed"
-    else
-      render json: "Something went wrong"
-    end
+    render json.director destroyed: false unless @director.destroy
   end
 
   def director_params

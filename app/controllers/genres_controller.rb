@@ -1,8 +1,7 @@
 class GenresController < SecureController
   before_action :find_by_id, only: [:update, :destroy]
   def index
-    @genre = Genre.all
-    render json: {data: @genre, type: "Genres"}
+    @genres = Genre.all.pagination
   end
 
   def create

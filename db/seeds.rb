@@ -15,10 +15,10 @@
 #   name = Faker::Movies::Hobbit.character
 #   Actor.create name: name
 # end
-10.times do
-  name = Faker::Movies::HarryPotter.character
-  Actor.create name: name
-end
+# 10.times do
+#   name = Faker::Movies::HarryPotter.character
+#   Actor.create name: name
+# end
 # 100.times do
 #   lim = ["0", "6", "12", "16", "18"]
 #   name = Faker::Movie.title
@@ -28,3 +28,8 @@ end
 #   limit = lim.sample
 #   Film.create name: name, description: description, poster: poster, director_id: director_id, limit: limit
 # end
+
+20.times do
+  name = Faker::Nation.nationality
+  Genre.create name: name
+end
