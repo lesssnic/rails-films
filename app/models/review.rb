@@ -1,4 +1,5 @@
 class Review < ApplicationRecord
+  include Authorship
   belongs_to :film
   belongs_to :user
   validates :film_id, numericality: {only_integer: true}

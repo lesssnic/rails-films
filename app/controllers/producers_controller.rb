@@ -1,41 +1,22 @@
 class ProducersController < SecureController
   before_action :set_producer, only: %i[show update destroy]
+  before_action :authorize_producer!
+  after_action :verify_authorized
+  skip_before_action :authenticate_user!, only: :index
 
-  # GET /producers
-  # GET /producers.json
   def index
     @producers = Producer.all
   end
 
-  # GET /producers/1
-  # GET /producers/1.json
-  def show
-  end
-
-  # POST /producers
-  # POST /producers.json
   def create
     @producer = Producer.new(producer_params)
-
-    if @producer.save
-      render :show, status: :created, location: @producer
-    else
-      render json: @producer.errors, status: :unprocessable_entity
-    end
+    render json: @producer.errors, status: :unprocessable_entity unless @producer.save
   end
 
-  # PATCH/PUT /producers/1
-  # PATCH/PUT /producers/1.json
   def update
-    if @producer.update(producer_params)
-      render :show, status: :ok, location: @producer
-    else
-      render json: @producer.errors, status: :unprocessable_entity
-    end
+    render json: @producer.errors, status: :unprocessable_entity unless @producer.update(producer_params)
   end
 
-  # DELETE /producers/1
-  # DELETE /producers/1.json
   def destroy
     @producer.destroy
   end
@@ -50,5 +31,9 @@ class ProducersController < SecureController
   # Only allow a list of trusted parameters through.
   def producer_params
     params.fetch(:producer, {})
+  end
+
+  def authorize_producer!
+    authorize(@producer || Producer)
   end
 end

@@ -1,6 +1,8 @@
 class ActorsController < SecureController
   before_action :set_actor, only: %i[show update destroy]
-
+  before_action :authorize_actor!
+  after_action :verify_authorized
+  skip_before_action :authenticate_user!, only: :index
   # GET /actors
   # GET /actors.json
   def index
@@ -28,5 +30,9 @@ class ActorsController < SecureController
 
   def actor_params
     params.fetch(:actor, {})
+  end
+
+  def authorize_actor!
+    authorize(@actor || Actor)
   end
 end

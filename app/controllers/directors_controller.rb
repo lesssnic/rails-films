@@ -1,5 +1,7 @@
 class DirectorsController < SecureController
-  before_action
+  before_action :authorize_director!
+  after_action :verify_authorized
+  skip_before_action :authenticate_user!, only: :index
   def index
     @directors = Director.all
   end
@@ -14,7 +16,13 @@ class DirectorsController < SecureController
     render json.director destroyed: false unless @director.destroy
   end
 
+  private
+
   def director_params
     params.require(:director).permit(:first_name, :last_name, :photo)
+  end
+
+  def authorize_director!
+    authorize(@director || Director)
   end
 end
