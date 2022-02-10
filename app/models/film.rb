@@ -22,4 +22,14 @@ class Film < ApplicationRecord
   def rating
     (reviews.sum(&:rating).to_f / reviews.size) if reviews.size > 0
   end
+
+  def self.to_csv
+    attributes = %w[id name description poster limit]
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |film|
+        csv << attributes.map { |attr| film.send(attr) }
+      end
+    end
+  end
 end
