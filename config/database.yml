@@ -85,6 +85,6 @@ test:
 #
 production:
   <<: *default
-  database: testAuth_production
-  username: testAuth
-  password: <%= ENV['TESTAUTH_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>>
+  # username: testAuth
+  # password: <%= ENV['TESTAUTH_DATABASE_PASSWORD'] %>
