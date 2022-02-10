@@ -1,4 +1,4 @@
-class UserPolicy < ApplicationPolicy
+class BlockedPolicy < ApplicationPolicy
   def index?
     user.admin_role?
   end
