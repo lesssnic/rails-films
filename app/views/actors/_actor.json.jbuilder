@@ -1,2 +1,2 @@
-json.extract! actor, :id, :created_at, :updated_at
+json.extract! actor, :id, :name
 json.url actor_url(actor, format: :json)
