@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:index, :create, :update, :destroy]
   end
   namespace :admin do
-    resources :downloads, only: %i[index]
+    get "films/:export_id", to: "films#index"
+    resources :films, only: %i[create]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

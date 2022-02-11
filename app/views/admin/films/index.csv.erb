@@ -1,0 +1,5 @@
+<%- headers = %w[id name description limit] -%>
+<%= CSV.generate_line headers %>
+<%- @films.each do |film| -%>
+  <%= CSV.generate_line( headers.map { |header| film.send(header)} ) -%>
+<%- end -%>
